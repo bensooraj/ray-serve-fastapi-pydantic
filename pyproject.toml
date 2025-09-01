@@ -7,7 +7,10 @@ authors = [
     { name = "bensooraj", email = "bensooraj@users.noreply.github.com" }
 ]
 requires-python = ">=3.11"
-dependencies = []
+dependencies = [
+    "fastapi[standard]>=0.116.1",
+    "ray[default,serve]>=2.49.0",
+]
 
 [project.scripts]
 foo = "foo:main"
@@ -15,6 +18,9 @@ foohello = "foo:say_hello"
 
 bar = "bar:main"
 barhello = "bar:say_hello"
+
+start_model_chain = "model_chain:run"
+stop_model_chain = "model_chain:stop"
 
 [build-system]
 requires = ["uv_build>=0.8.4,<0.9.0"]
