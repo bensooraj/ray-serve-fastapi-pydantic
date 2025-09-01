@@ -1,4 +1,5 @@
 from typing import Union
+from starlette.requests import Request
 from ray import serve
 from ray.serve.handle import (
     DeploymentHandle,
@@ -33,7 +34,8 @@ class Ingress:
         self._adder = adder
         self._multiplier = multiplier
 
-    async def __call__(self, input: int) -> int:
+    async def __call__(self, request: Request) -> int:
+        input = (await request.json())["input"]
         adder_response: Union[DeploymentResponse, DeploymentResponseGenerator] = (
             self._adder.remote(input)
         )
