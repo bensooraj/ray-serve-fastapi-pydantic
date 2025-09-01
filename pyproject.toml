@@ -11,6 +11,10 @@ dependencies = []
 
 [project.scripts]
 foo = "foo:main"
+foohello = "foo:say_hello"
+
+bar = "bar:main"
+barhello = "bar:say_hello"
 
 [build-system]
 requires = ["uv_build>=0.8.4,<0.9.0"]
