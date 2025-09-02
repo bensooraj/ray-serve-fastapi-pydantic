@@ -1,29 +1,19 @@
-from .model_chain import RAY_SERVE_APPLICATION_NAME, Adder, Multiplier, Ingress
+from .model_chain import (
+    RAY_SERVE_APPLICATION_NAME,
+    serve_app_builder,
+)
 from ray import serve
-from ray.serve import Application
 from ray.serve.handle import (
     DeploymentHandle,
 )
 
 
-def serve_app() -> Application:
-    app = Ingress.bind(  # type: ignore
-        Adder.bind(increment=1),  # type: ignore
-        Multiplier.bind(multiple=2),  # type: ignore
-    )
-
-    return app
-
-
 def run():
-    app = Ingress.bind(  # type: ignore
-        Adder.bind(increment=1),  # type: ignore
-        Multiplier.bind(multiple=2),  # type: ignore
-    )
-
     try:
         handle: DeploymentHandle = serve.run(
-            app, name=RAY_SERVE_APPLICATION_NAME, route_prefix="/model_chain"
+            serve_app_builder({}),
+            name=RAY_SERVE_APPLICATION_NAME,
+            route_prefix="/model_chain",
         )
 
         print(f"""

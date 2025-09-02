@@ -1,6 +1,7 @@
-from typing import Union
+from typing import Union, Dict
 from pydantic import BaseModel
 from ray import serve
+from ray.serve import Application
 from ray.serve.handle import (
     DeploymentHandle,
     DeploymentResponse,
@@ -65,3 +66,15 @@ class Ingress:
         # `await` the final chained response.
         result = await multiplier_response
         return self.IngressResponse(result=result)
+
+
+def serve_app_builder(args: Dict[str, str]) -> Application:
+    app = Ingress.bind(  # type: ignore
+        Adder.bind(increment=1),  # type: ignore
+        Multiplier.bind(multiple=2),  # type: ignore
+    )
+
+    return app
+
+
+model_chain_app = serve_app_builder({})
