@@ -1,6 +1,5 @@
 from typing import Union
 from pydantic import BaseModel
-from starlette.requests import Request
 from ray import serve
 from ray.serve.handle import (
     DeploymentHandle,
@@ -8,7 +7,6 @@ from ray.serve.handle import (
     DeploymentResponseGenerator,
 )
 from fastapi import FastAPI
-from fastapi.responses import JSONResponse
 
 RAY_SERVE_APPLICATION_NAME = "model_chain_app"
 
