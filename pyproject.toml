@@ -16,9 +16,6 @@ dependencies = [
 foo = "foo:main"
 foohello = "foo:say_hello"
 
-bar = "bar:main"
-barhello = "bar:say_hello"
-
 start_model_chain = "model_chain:run"
 stop_model_chain = "model_chain:stop"
 
